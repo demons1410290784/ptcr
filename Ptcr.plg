@@ -1,0 +1,374 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Ptcr - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Release/Ptcr.res" /d "NDEBUG" /d "_AFXDLL" "C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Ptcr.rc"" 
+Creating temporary file "C:\Users\14102\AppData\Local\Temp\RSP19A6.tmp" with contents
+[
+/nologo /MD /W3 /GX /Od /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /FR"Release/" /Fp"Release/Ptcr.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /Zm500 /c 
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\CombinDlg.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Comcfg.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\font.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\GetAnyResOfTem.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\gridctrl.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Login.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\MainFrm.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\ManCmd1.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\NameResi.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\picture.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Ptcr.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RTSave.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SelPrintData.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SelRTRange.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SerialPort.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SetSingleUser.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SetTemp.cpp"
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SETUSER.cpp"
+]
+Creating command line "cl.exe @C:\Users\14102\AppData\Local\Temp\RSP19A6.tmp" 
+Creating temporary file "C:\Users\14102\AppData\Local\Temp\RSP19A7.tmp" with contents
+[
+/nologo /MD /W3 /GX /Od /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /FR"Release/" /Fp"Release/Ptcr.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /Zm500 /c 
+"C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\14102\AppData\Local\Temp\RSP19A7.tmp" 
+Creating temporary file "C:\Users\14102\AppData\Local\Temp\RSP19A8.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:no /pdb:"Release/Ptcr.pdb" /machine:I386 /out:"Release/Ptcr.exe" 
+".\Release\CombinDlg.obj"
+".\Release\Comcfg.obj"
+".\Release\DataOptize.obj"
+".\Release\Draw.obj"
+".\Release\font.obj"
+".\Release\GetAnyResOfTem.obj"
+".\Release\gridctrl.obj"
+".\Release\Login.obj"
+".\Release\MainFrm.obj"
+".\Release\ManCmd1.obj"
+".\Release\NameResi.obj"
+".\Release\picture.obj"
+".\Release\Ptcr.obj"
+".\Release\PtcrDoc.obj"
+".\Release\PtcrView.obj"
+".\Release\RT.obj"
+".\Release\RTSave.obj"
+".\Release\SelPrintData.obj"
+".\Release\SelRTRange.obj"
+".\Release\SerialPort.obj"
+".\Release\SetSingleUser.obj"
+".\Release\SetTemp.obj"
+".\Release\SETUSER.obj"
+".\Release\StdAfx.obj"
+".\Release\Ptcr.res"
+".\WinIo.lib"
+]
+Creating command line "link.exe @C:\Users\14102\AppData\Local\Temp\RSP19A8.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+CombinDlg.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\CombinDlg.cpp(275) : warning C4101: 'e' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\CombinDlg.cpp(317) : warning C4101: 'e' : unreferenced local variable
+Comcfg.cpp
+DataOptize.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(97) : warning C4018: '>' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(102) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(110) : warning C4018: '==' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(128) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(151) : warning C4018: '>' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(157) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(165) : warning C4018: '==' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(183) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(204) : warning C4018: '>' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(210) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(218) : warning C4018: '==' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(238) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(259) : warning C4018: '>' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(265) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(273) : warning C4018: '==' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(293) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(364) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(371) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(380) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(387) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(393) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(408) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(421) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(439) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(447) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(455) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(463) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(470) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(486) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(494) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(502) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(511) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(519) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(534) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(542) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(550) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(559) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(566) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\DataOptize.cpp(587) : warning C4101: 'data' : unreferenced local variable
+Draw.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(364) : warning C4244: '+=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(374) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(393) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(393) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(400) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(400) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(402) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(402) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(404) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(404) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(409) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(409) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(413) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(417) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(417) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(428) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(480) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(480) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(487) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(487) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(503) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(503) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(510) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(510) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(515) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(515) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(525) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(541) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(541) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(547) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(557) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(561) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(572) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(573) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(576) : warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(580) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(580) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(586) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(617) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(649) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(675) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(677) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(758) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(807) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(870) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(931) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(957) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(974) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(977) : warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(989) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(989) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1068) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1116) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1154) : warning C4244: '=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1258) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1284) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1301) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1304) : warning C4244: '+=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1370) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1370) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1466) : warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1466) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1768) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1974) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1979) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1982) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1987) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1990) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1995) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(1998) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2003) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2006) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2011) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2480) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2480) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2820) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2876) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2876) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2895) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2895) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2934) : warning C4244: '+=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2996) : warning C4244: '+=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3010) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3021) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3023) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3034) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3037) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3047) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3050) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3060) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3063) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3073) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3079) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3089) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3092) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3101) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3104) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3113) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3115) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3125) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3127) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3137) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(3161) : warning C4244: '+=' : conversion from 'double' to 'long', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2797) : warning C4101: 'width0' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2805) : warning C4101: 'r' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2802) : warning C4101: 'm_ShowDot' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2803) : warning C4101: 'QXResRange' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2801) : warning C4101: 'i' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\Draw.cpp(2796) : warning C4101: 'heightcopy' : unreferenced local variable
+font.cpp
+GetAnyResOfTem.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\GetAnyResOfTem.cpp(117) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+gridctrl.cpp
+Login.cpp
+MainFrm.cpp
+ManCmd1.cpp
+NameResi.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\NameResi.cpp(569) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\NameResi.cpp(649) : warning C4305: '=' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\NameResi.cpp(683) : warning C4305: '=' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\NameResi.cpp(712) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\NameResi.cpp(713) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\NameResi.cpp(713) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+picture.cpp
+Ptcr.cpp
+PtcrDoc.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1721) : warning C4305: '=' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1775) : warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1776) : warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1878) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1879) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1896) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1897) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1923) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1924) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1934) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1935) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1959) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(1960) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2081) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2089) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2092) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2095) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2189) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2193) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2197) : warning C4305: 'argument' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2169) : warning C4101: 'results' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2330) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2420) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2427) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2570) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2577) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2580) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2617) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrDoc.cpp(2619) : warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+PtcrView.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(273) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(273) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(278) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(278) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(286) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(286) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(323) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(323) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(328) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(328) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(1745) : warning C4101: 'results' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(1744) : warning C4101: 'Read' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(1857) : warning C4305: '=' : truncation from 'const double' to 'float'
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(1952) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(1960) : warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2031) : warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2166) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2416) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2229) : warning C4101: 'results' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2230) : warning C4101: 'cmd' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2528) : warning C4101: 'results' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2529) : warning C4101: 'cmd' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(2837) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3045) : warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3172) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3189) : warning C4018: '<' : signed/unsigned mismatch
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3382) : warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3395) : warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3400) : warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3401) : warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\PtcrView.cpp(3436) : warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+RT.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(31) : warning C4553: '==' : operator has no effect; did you intend '='?
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(262) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(345) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(353) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(330) : warning C4101: 'R25' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(616) : warning C4101: 'r1' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(616) : warning C4101: 'r2' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(616) : warning C4101: 'r0' : unreferenced local variable
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RT.cpp(727) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+RTSave.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\RTSave.cpp(38) : warning C4305: '=' : truncation from 'const double' to 'float'
+SelPrintData.cpp
+SelRTRange.cpp
+SerialPort.cpp
+Generating Code...
+Compiling...
+SetSingleUser.cpp
+SetTemp.cpp
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SetTemp.cpp(313) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SetTemp.cpp(314) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+C:\Users\14102\Desktop\ptcr阻温系统程序修改\修改2.0\SetTemp.cpp(322) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+SETUSER.cpp
+Generating Code...
+Linking...
+Creating temporary file "C:\Users\14102\AppData\Local\Temp\RSP1E7C.tmp" with contents
+[
+/nologo /o"Release/Ptcr.bsc" 
+".\Release\StdAfx.sbr"
+".\Release\CombinDlg.sbr"
+".\Release\Comcfg.sbr"
+".\Release\DataOptize.sbr"
+".\Release\Draw.sbr"
+".\Release\font.sbr"
+".\Release\GetAnyResOfTem.sbr"
+".\Release\gridctrl.sbr"
+".\Release\Login.sbr"
+".\Release\MainFrm.sbr"
+".\Release\ManCmd1.sbr"
+".\Release\NameResi.sbr"
+".\Release\picture.sbr"
+".\Release\Ptcr.sbr"
+".\Release\PtcrDoc.sbr"
+".\Release\PtcrView.sbr"
+".\Release\RT.sbr"
+".\Release\RTSave.sbr"
+".\Release\SelPrintData.sbr"
+".\Release\SelRTRange.sbr"
+".\Release\SerialPort.sbr"
+".\Release\SetSingleUser.sbr"
+".\Release\SetTemp.sbr"
+".\Release\SETUSER.sbr"]
+Creating command line "bscmake.exe @C:\Users\14102\AppData\Local\Temp\RSP1E7C.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+Ptcr.exe - 0 error(s), 230 warning(s)
+</pre>
+</body>
+</html>
