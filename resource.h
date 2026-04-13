@@ -196,13 +196,13 @@
 #define IDC_EDIT_TempVias               1164
 #define IDC_RADIO5                      1165
 #define IDC_LIST_CURVE                  1169
-#define IDC_BTN_DOWN                    1170
+#define IDC_BTN_DOWNLOAD                1170
 #define IDC_EDIT_SP                     1171
-#define IDC_BTN_UPDATE_ROW              1172
-#define IDC_BTN_RUN                     1173
-#define IDC_BTN_AT                      1174
-#define IDC_BTN_STOP                    1175
-#define IDC_EDIT_T                      1176
+#define IDC_EDIT_T                      1172
+#define IDC_BTN_UPDATE                  1173
+#define IDC_BTN_RUN                     1174
+#define IDC_BTN_AT                      1175
+#define IDC_BTN_STOP                    1176
 #define ID_WND_SINGLE                   32771
 #define ID_WND_MULTI                    32772
 #define ID_WND_DATA                     32773
@@ -274,7 +274,7 @@
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        161
 #define _APS_NEXT_COMMAND_VALUE         32837
-#define _APS_NEXT_CONTROL_VALUE         1173
+#define _APS_NEXT_CONTROL_VALUE         1174
 #define _APS_NEXT_SYMED_VALUE           104
 #endif
 #endif

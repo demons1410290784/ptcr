@@ -68,9 +68,7 @@ protected:
 	afx_msg void OnFileOpen();
 	afx_msg void OnSelchangeMultiMeter();
 	//}}AFX_MSG
-	// ================= 加在这里 =================
 	virtual BOOL OnInitDialog();
-	// ============================================
 	DECLARE_MESSAGE_MAP()
 };
 
@@ -101,7 +99,7 @@ protected:
 
 	// 生成的消息映射函数
 	//{{AFX_MSG(CCmdCfg)
-	afx_msg void OnEditchangeDigitConctollor();
+		// NOTE: the ClassWizard will add member functions here
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

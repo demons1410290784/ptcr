@@ -62,114 +62,69 @@ END_MESSAGE_MAP()
 //
 void CManCmd::OnOK() 
 {
+	// TODO: Add extra validation here
     int Sr253BCC;
-    if(F45==0) Sr253BCC=m_pDoc->m_sPort.m_rxdata.Sr253BCC;
-    else Sr253BCC=m_pDoc->m_sPortF45.m_rxdata.Sr253BCC;	
+if(F45==0)Sr253BCC=m_pDoc->m_sPort.m_rxdata.Sr253BCC;
+else Sr253BCC=m_pDoc->m_sPortF45.m_rxdata.Sr253BCC;	//根据通讯目标为万用表或电子表，选择通讯协议
+	char cmd[50];
+	char results[128];
+	results[0]=0;
+	UpdateData(TRUE);
+	if(m_Cmd.IsEmpty())
+		return;
 
-    // ================= 【加上这一行！】强制接管 =================
-    Sr253BCC = 10; // 不管系统原来是什么协议，在这里强行使用宇电的十六进制协议！
-    // ==========================================================
-
-    UpdateData(TRUE);
-    if(m_Cmd.IsEmpty()) return;
-
-    // ================= 宇电 MODBUS 十六进制收发专线 =================
-    if (Sr253BCC == 10) {
-        ::SendMessage(AfxGetMainWnd()->m_hWnd, WM_STATUS_MESSAGE, 0, AFX_IDS_SENDCMD);
-        
-        // 1. 过滤掉用户输入中的空格
-        CString strInput = m_Cmd;
-        
-        int byteLen = strInput.GetLength() / 2;
-        if (byteLen == 0) {
-            MessageBox("请输入有效的十六进制命令！", "提示", MB_OK);
-            return;
-        }
-
-        // 2. 将字符串转换为二进制字节流
-        unsigned char* sendBuf = new unsigned char[byteLen];
-        for (int i = 0; i < byteLen; i++) {
-            CString byteStr = strInput.Mid(i * 2, 2);
-            int val;
-            sscanf(byteStr, "%x", &val); // 将十六进制文本转为真实数值
-            sendBuf[i] = (unsigned char)val;
-        }
-
-        // 3. 清空接收缓冲区并发送纯二进制数据
-        m_pDoc->m_sPort.m_rxdata.count = 0;
-        m_pDoc->m_sPort.m_rxdata.theend = FALSE;
-        memset(m_pDoc->m_sPort.m_rxdata.results, 0, sizeof(m_pDoc->m_sPort.m_rxdata.results));
-        
-        m_pDoc->m_sPort.WriteToPortBinary((char*)sendBuf, byteLen);
-
-        // 4. 等待仪表返回数据
-        CTime ct1 = CTime::GetCurrentTime();
-        MSG msg;
-        CString strResponse = "";
-        while (1) {
-            ::PostMessage(AfxGetMainWnd()->m_hWnd, WM_COMM_RXLINE, 1, 1);
-            GetMessage(&msg, NULL, 0, 0);
-            
-            // 如果接收到了数据
-            if (m_pDoc->m_sPort.m_rxdata.count > 0) {
-                Sleep(150); // 微小延时，确保这一包的字节全部进站
-                int rxLen = m_pDoc->m_sPort.m_rxdata.count;
-                
-                // 将接收到的二进制字节流，转换回十六进制文本显示给用户
-                for (int k = 0; k < rxLen; k++) {
-                    CString hexFmt;
-                    hexFmt.Format("%02X ", (unsigned char)m_pDoc->m_sPort.m_rxdata.results[k]);
-                    strResponse += hexFmt;
-                }
-                break;
-            } else {
-                // 2秒超时判定
-                if ((CTime::GetCurrentTime() - ct1).GetTotalSeconds() >= 2) {
-                    strResponse = "接收超时，请检查接线或命令格式！";
-                    break;
-                }
+	// 【新增】拦截发给宇电温控仪的 HEX 调试指令
+    if (m_pDoc->m_ControllerType == 3) {
+        CString strIn = m_Cmd; strIn.Remove(' '); // 移除可能带有的空格
+        int nLen = strIn.GetLength() / 2;
+        if (nLen > 0) {
+            unsigned char* buf = new unsigned char[nLen];
+            for (int i = 0; i < nLen; i++) {
+                int v; sscanf(strIn.Mid(i * 2, 2), "%x", &v); buf[i] = v;
             }
+            m_pDoc->m_sPort.m_rxdata.count = 0;
+            m_pDoc->m_sPort.WriteToPortBinary(buf, nLen);
+            Sleep(200); 
+            CString res = "";
+            for (int k = 0; k < m_pDoc->m_sPort.m_rxdata.count; k++) {
+                CString h; h.Format("%02X ", (unsigned char)m_pDoc->m_sPort.m_rxdata.results[k]);
+                res += h;
+            }
+            m_Result = res.IsEmpty() ? "无响应" : res;
+            delete[] buf; UpdateData(FALSE);
         }
-
-        delete[] sendBuf;
-        m_Result = strResponse; // 把结果显示在下面的文本框中
-        UpdateData(FALSE);
-        ::SendMessage(AfxGetMainWnd()->m_hWnd, WM_STATUS_MESSAGE, 0, AFX_IDS_FINISH);
-        return; // 宇电处理完毕，直接返回
+        return; // 直接返回，不再执行下方代码
     }
-    // ========================================================================
 
-    // === 下面是原有的其它仪表的 ASCII 处理逻辑，保持不变 ===
-    char cmd[50];
-    char results[128];
-    results[0]=0;
-
-    if(Sr253BCC==6){//万用表
-        strcpy(cmd,m_Cmd.GetBuffer(50));
-        if(m_pDoc->MultiMeter==1)  strcat(cmd,"\r");
-        if(m_pDoc->MultiMeter==4)  strcat(cmd,"\n");
-        if(m_pDoc->MultiMeter==5)  strcat(cmd,"\r\n");	
-    }
+	if(Sr253BCC==6){//万用表
+			strcpy(cmd,m_Cmd.GetBuffer(50));
+		if(m_pDoc->MultiMeter==1)  strcat(cmd,"\r");
+		if(m_pDoc->MultiMeter==4)  strcat(cmd,"\n");
+		if(m_pDoc->MultiMeter==5)  strcat(cmd,"\r\n");	//修改命令格式
+	}
     else if(Sr253BCC==2){//温控表，协议SR253
-        strcpy(cmd,m_Cmd.GetBuffer(50));		
-    }
-    else if(Sr253BCC==3){
-        strcpy(cmd,"@");
-        strcat(cmd,m_Cmd.GetBuffer(50));
-        strcat(cmd,":\r");
-    }
-    else if(Sr253BCC==4){//温控表，协议SR93
-        strcpy(cmd,m_Cmd.GetBuffer(50));
-    }
+		strcpy(cmd,m_Cmd.GetBuffer(50));		//修改命令格式
+	}
+	else if(Sr253BCC==3){
+		strcpy(cmd,"@");
+		strcat(cmd,m_Cmd.GetBuffer(50));
+		strcat(cmd,":\r");
+	}
+	else if(Sr253BCC==4){//温控表，协议SR93
 
-    ::SendMessage(AfxGetMainWnd()->m_hWnd,WM_STATUS_MESSAGE,0,AFX_IDS_SENDCMD);
-    if(!m_pDoc->ReadPvsv(cmd,results,4,3,Sr253BCC))	
-    {
-        MessageBox("操作不成功!","提示",MB_OK);	
-    }
-    if(strlen(results))	
-        results[strlen(results)-1]=0;
-    m_Result=results;	
+		strcpy(cmd,m_Cmd.GetBuffer(50));
+	}
+
+		::SendMessage(AfxGetMainWnd()->m_hWnd,WM_STATUS_MESSAGE,0,AFX_IDS_SENDCMD);
+  if(!m_pDoc->ReadPvsv(cmd,results,4,3,Sr253BCC))	//向仪器发送cmd命令，获取结果到result，若通讯不成功：
+	{
+		MessageBox("操作不成功!","提示",MB_OK);	//弹出消息提示对话框
+	}
+	if(strlen(results))	//若存在返回结果
+		results[strlen(results)-1]=0;
+    m_Result=results;	//结果最后一位置零
     UpdateData(FALSE);
-    ::SendMessage(AfxGetMainWnd()->m_hWnd,WM_STATUS_MESSAGE,0,AFX_IDS_FINISH);
+	::SendMessage(AfxGetMainWnd()->m_hWnd,WM_STATUS_MESSAGE,0,AFX_IDS_FINISH);
+//lby	return;
+//	CDialog::OnOK();
 }

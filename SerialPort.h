@@ -48,7 +48,7 @@ public:
 	DCB			GetDCB();
 
 	void		WriteToPort(char* string);
-	void		WriteToPortBinary(char* string, int len); // 【新增】支持二进制发送
+	void		WriteToPortBinary(unsigned char* pData, int nLen);
 	CWnd*				m_pOwner;
 
 protected:

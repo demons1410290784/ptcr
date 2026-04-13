@@ -39,6 +39,11 @@ public:
 //	CRT m_rt;
 	CSerialPort m_sPort;
 	CSerialPort m_sPortF45;
+	// --- 【新增开始】宇电温控仪专属变量 ---
+    int m_ControllerType; // 记录温控表类型，3为宇电
+    short m_YudianSP[30]; // 宇电目标温度数组 (最多存30段)
+    short m_Yudiant[30];  // 宇电时间数组
+    // --- 【新增结束】 ---
 	BOOL OpenFlag;//TRUE 文件打开成功;False 文件打开失败;
     float stemp[MAXOFSPL];	
 	bool m_Running;
@@ -77,6 +82,12 @@ public:
 
 // 实现
 public:
+	// --- 【新增开始】宇电温控仪通讯函数 ---
+    unsigned short CalcCRC16(unsigned char *pMsg, int nLen);
+    BOOL ReadYudianData(float &fPV, float &fSV);
+    BOOL DownloadYudianCurve(short* pSP, short* pt, int nCount);
+    void SetYudianState(int nCmd); // 0=运行, 1=停止, 2=自整定
+    // --- 【新增结束】 ---
 	int OSver;
 	int GetOSVersion();
 	float m_Tempvias;
@@ -116,19 +127,6 @@ public:
 	virtual ~CPtcrDoc();
  
 	float m_PV,m_SV,m_Resistance;
-	// ================= 宇电 MODBUS 变量与函数声明 =================
-	unsigned short CRC16(unsigned char *puchMsg, unsigned short usDataLen);
-	bool ReadYudianModbus(int reg, short &value);
-	bool WriteYudianModbus(int reg, short value);
-
-	short m_YudianSP[50]; 
-	short m_Yudiant[50];  
-	int m_YudianPno;      
-
-	bool DownloadYudianProgram();       
-	bool SetYudianAutoTune(bool bStart);
-	bool SetYudianRunState(int state);  
-	// ==============================================================
 	int STARTDOT;
 	float m_Pt100;
 	int m_SvNum;

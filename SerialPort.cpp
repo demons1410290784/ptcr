@@ -137,7 +137,7 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner)
 	
 	BOOL bResult = FALSE;
 
-	char szPort[20]; // 【修改】扩大缓冲区，防止溢出
+	char szPort[10];
 
 	//关键部分!
 	EnterCriticalSection(&m_csCommunicationSync);
@@ -149,8 +149,8 @@ BOOL CSerialPort::InitPort(CWnd* pPortOwner)
 		m_hComm = NULL;
 	}
 
-	// 【修改】准备端口指令字符串，加入 \\.\ 前缀，完美支持 COM10 以上的大端口！
-	sprintf(szPort, "\\\\.\\COM%d", m_nPortNr+1);
+	// 准备端口指令字符串
+	sprintf(szPort, "\\\\.\\COM%d", m_nPortNr+1); // 【修改】支持 COM10 以上
 	
 	// 获取端口的句柄
 	m_hComm = CreateFile(szPort,						// 通信端口字符串 （COMX）
@@ -733,26 +733,19 @@ DWORD CSerialPort::GetWriteBufferSize()
 {
 	return m_nWriteBufferSize;
 }
-// 强制发送二进制字节流，避免 0x00 被截断（已修复 OVERLAPPED 异步写入限制）
-void CSerialPort::WriteToPortBinary(char* string, int len)
+
+// 2. 在文件末尾添加函数实现：
+void CSerialPort::WriteToPortBinary(unsigned char* pData, int nLen)
 {
+    if (m_hComm == NULL) return;
     DWORD dwBytesWritten = 0;
     OVERLAPPED osWrite = {0};
-    
-    // 创建一个事件，用于底层跟踪数据是否发送完毕
     osWrite.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-    
-    // 发送数据，必须带上 osWrite 结构体
-    if (!WriteFile(m_hComm, string, len, &dwBytesWritten, &osWrite)) 
-    {
-        // 如果系统说“正在后台排队发送”(ERROR_IO_PENDING)
-        if (GetLastError() == ERROR_IO_PENDING) 
-        {
-            // 等待底层硬件将数据彻底发送出串口
+
+    if (!WriteFile(m_hComm, pData, nLen, &dwBytesWritten, &osWrite)) {
+        if (GetLastError() == ERROR_IO_PENDING) {
             GetOverlappedResult(m_hComm, &osWrite, &dwBytesWritten, TRUE);
         }
     }
-    
-    // 发送完毕，清理事件句柄
     CloseHandle(osWrite.hEvent);
 }

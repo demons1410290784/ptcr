@@ -94,6 +94,7 @@ CPptc=0;    //0 CPtc, 1 PPtc
     m_rt.isChangeRange=TRUE;//TURE Change Range;False No
 		ZWX=0;//0=zwx-b 1=zwx-c,2=ZWX-d
     m_rt.ZWX=ZWX;
+	m_ControllerType = 0; // 【新增】初始化温控表类型标识
    m_Tempvias=0;
 	if( ZWX==1) Init8253();
     Pidtime=10;//10sec
@@ -1837,6 +1838,18 @@ float CPtcrDoc::Temperature(float Resistance0,float tt00)
 //
 void CPtcrDoc::ReadSr253() 
 {
+	// 【新增】如果是宇电表，拦截老旧的读取逻辑，使用新的 MODBUS 读取逻辑
+    if (m_ControllerType == 3) {
+        if (ReadYudianData(m_PV, m_SV)) {
+            m_rt.m_tSr253 = m_PV; 
+            m_rt.m_PV = m_PV; 
+            m_rt.m_SV = m_SV;
+            m_Pt100 = m_PV; 
+            m_rt.m_tPt100 = m_PV;
+            if(Pt100Chan_1 == -1) { m_Pt100_1 = m_PV; m_Pt100_2 = m_PV; }
+        }
+        return; // 读完直接退出，不执行下方代码
+    }
 	// TODO: Add your control notification handler code here
 int Sr253BCC;
 char results[128];
@@ -1847,29 +1860,6 @@ int Read[10];
   char cmd[80]="DS";
  
  Sr253BCC=m_sPort.m_rxdata.Sr253BCC;
-// ================= 强行使用宇电协议 =================
-    Sr253BCC = 10; // 【新增这一行！】不管界面选什么，强制认为是宇电仪表！
-    m_sPort.m_rxdata.Sr253BCC = 10;
-    // ====================================================
- // ================= 宇电 MODBUS 读取分支 =================
-    if (Sr253BCC == 10) { 
-        short pv_val = 0, sv_val = 0;
-        if(ReadYudianModbus(0x004A, pv_val)) m_PV = pv_val / 10.0f;
-        if(ReadYudianModbus(0x0000, sv_val)) m_SV = sv_val / 10.0f;
-
-        m_rt.m_tSr253 = m_PV;       
-        m_SvNum = 1;
-        m_rt.m_PV = m_PV;
-        m_rt.m_SV = m_SV;
-        m_Pt100 = m_PV;
-        m_rt.m_tPt100 = m_PV;
-        if(Pt100Chan_1 == -1) {
-            m_Pt100_1 = m_PV;
-            m_Pt100_2 = m_PV;
-        }
-        return; 
-    }
-    // =======================================================
  // Sr253BCC=m_sPort.m_rxdata.Sr253BCC;
  if(Sr253BCC==2) { 
 	ReadPvsv(cmd,results,4,3,Sr253BCC);
@@ -2548,20 +2538,6 @@ int Read[10];
   int DP=0; 
  
  Sr253BCC=m_sPort.m_rxdata.Sr253BCC;
- // ================= 宇电 MODBUS 写入分支 =================
-    if (Sr253BCC == 10) {
-        short sv_val = (short)(temp * 10.0f);
-        if(WriteYudianModbus(0x0000, sv_val)) {
-            m_PV = m_Pt100; 
-            m_SV = temp;
-            m_SvNum = 1;
-            m_rt.m_PV = m_PV;
-            m_rt.m_SV = m_SV;	
-            return TRUE; 
-        }
-        return FALSE; 
-    }
-    // =======================================================
 
  if(Sr253BCC==4) 
   {	 	
@@ -2661,126 +2637,63 @@ int CPtcrDoc::GetOSVersion()
  OSver=-1;
  return OSver;
 }
-// ==================== 宇电 MODBUS-RTU 核心实现 ====================
-unsigned short CPtcrDoc::CRC16(unsigned char *puchMsg, unsigned short usDataLen) 
-{
-    unsigned short wCRCin = 0xFFFF;
-    unsigned short wCPoly = 0xA001;
-    for (int i = 0; i < usDataLen; i++) {
-        wCRCin ^= puchMsg[i];
+// 【新增】宇电 MODBUS 核心通讯功能实现
+unsigned short CPtcrDoc::CalcCRC16(unsigned char *pMsg, int nLen) {
+    unsigned short wCRC = 0xFFFF;
+    for (int i = 0; i < nLen; i++) {
+        wCRC ^= pMsg[i];
         for (int j = 0; j < 8; j++) {
-            if (wCRCin & 0x0001) { wCRCin >>= 1; wCRCin ^= wCPoly; } 
-            else { wCRCin >>= 1; }
+            if (wCRC & 0x01) { wCRC >>= 1; wCRC ^= 0xA001; } else { wCRC >>= 1; }
         }
     }
-    return wCRCin;
+    return wCRC;
 }
 
-bool CPtcrDoc::ReadYudianModbus(int reg, short &value) 
-{
-    unsigned char cmd[8];
-    cmd[0] = 0x01; cmd[1] = 0x03; 
-    cmd[2] = (reg >> 8) & 0xFF; cmd[3] = reg & 0xFF;
-    cmd[4] = 0x00; cmd[5] = 0x01;
-    unsigned short crc = CRC16(cmd, 6);
-    cmd[6] = crc & 0xFF; cmd[7] = (crc >> 8) & 0xFF;
-
+BOOL CPtcrDoc::ReadYudianData(float &fPV, float &fSV) {
+    unsigned char cmd[8] = {0x01, 0x03, 0x00, 0x4A, 0x00, 0x01, 0, 0};
+    unsigned short crc = CalcCRC16(cmd, 6);
+    cmd[6] = crc & 0xFF; cmd[7] = crc >> 8;
     m_sPort.m_rxdata.count = 0;
-    m_sPort.m_rxdata.theend = FALSE;
-    memset(m_sPort.m_rxdata.results, 0, sizeof(m_sPort.m_rxdata.results));
-
-    m_sPort.WriteToPortBinary((char*)cmd, 8); 
-
-    CTime ct1 = CTime::GetCurrentTime();
-    MSG msg;
-    while(1) {
-        ::PostMessage(AfxGetMainWnd()->m_hWnd, WM_COMM_RXLINE, 1, 1);
-        GetMessage(&msg, NULL, 0, 0);
-
-        if(m_sPort.m_rxdata.count >= 7) { 
-            unsigned char* res = (unsigned char*)m_sPort.m_rxdata.results;
-            if(res[0] == 0x01 && res[1] == 0x03 && res[2] == 0x02) {
-                value = (short)((res[3] << 8) | res[4]);
-                return true;
-            }
-            break;
-        } else {
-            if((CTime::GetCurrentTime() - ct1).GetTotalSeconds() >= 2) break;
-        }
+    m_sPort.WriteToPortBinary(cmd, 8);
+    Sleep(80); 
+    if (m_sPort.m_rxdata.count >= 7 && m_sPort.m_rxdata.results[1] == 0x03) {
+        short pvRaw = (m_sPort.m_rxdata.results[3] << 8) | m_sPort.m_rxdata.results[4];
+        fPV = (float)pvRaw / 10.0f; 
+        return TRUE;
     }
-    return false;
+    return FALSE;
 }
 
-bool CPtcrDoc::WriteYudianModbus(int reg, short value) 
-{
-    unsigned char cmd[8];
-    cmd[0] = 0x01; cmd[1] = 0x06; 
-    cmd[2] = (reg >> 8) & 0xFF; cmd[3] = reg & 0xFF;
-    cmd[4] = (value >> 8) & 0xFF; cmd[5] = value & 0xFF;
-    unsigned short crc = CRC16(cmd, 6);
-    cmd[6] = crc & 0xFF; cmd[7] = (crc >> 8) & 0xFF;
-
-    m_sPort.m_rxdata.count = 0;
-    m_sPort.m_rxdata.theend = FALSE;
-    memset(m_sPort.m_rxdata.results, 0, sizeof(m_sPort.m_rxdata.results));
-
-    m_sPort.WriteToPortBinary((char*)cmd, 8);
-
-    CTime ct1 = CTime::GetCurrentTime();
-    MSG msg;
-    while(1) {
-        ::PostMessage(AfxGetMainWnd()->m_hWnd, WM_COMM_RXLINE, 1, 1);
-        GetMessage(&msg, NULL, 0, 0);
-        if(m_sPort.m_rxdata.count >= 8) return true;
-        else {
-            if((CTime::GetCurrentTime() - ct1).GetTotalSeconds() >= 2) break;
-        }
+BOOL CPtcrDoc::DownloadYudianCurve(short* pSP, short* pt, int nCount) {
+    SetYudianState(1); // 必须先停止
+    Sleep(100);
+    for (int i = 0; i < nCount; i++) {
+        unsigned short spAddr = 0x0050 + (i * 2);
+        unsigned char cmdSP[8] = {0x01, 0x06, (unsigned char)(spAddr >> 8), (unsigned char)(spAddr & 0xFF), 
+                                  (unsigned char)(pSP[i] >> 8), (unsigned char)(pSP[i] & 0xFF), 0, 0};
+        unsigned short crcSP = CalcCRC16(cmdSP, 6);
+        cmdSP[6] = crcSP & 0xFF; cmdSP[7] = crcSP >> 8;
+        m_sPort.WriteToPortBinary(cmdSP, 8);
+        Sleep(50); 
+        
+        unsigned short tAddr = 0x0051 + (i * 2);
+        unsigned char cmdT[8] = {0x01, 0x06, (unsigned char)(tAddr >> 8), (unsigned char)(tAddr & 0xFF), 
+                                 (unsigned char)(pt[i] >> 8), (unsigned char)(pt[i] & 0xFF), 0, 0};
+        unsigned short crcT = CalcCRC16(cmdT, 6);
+        cmdT[6] = crcT & 0xFF; cmdT[7] = crcT >> 8;
+        m_sPort.WriteToPortBinary(cmdT, 8);
+        Sleep(50); 
     }
-    return false;
+    return TRUE;
 }
 
-bool CPtcrDoc::DownloadYudianProgram()
-{
-    // 【修改】拆除安全门，只要点了下载按钮，强制挂载宇电协议！
-    m_sPort.m_rxdata.Sr253BCC = 10;
-
-    int actualPno = 0;
-    int i = 0; 
-// ... 下面代码保持不变
-    for (i = 0; i < 50; i++) {
-        if (m_YudianSP[i] == -10) break; 
-        actualPno++;
-    }
-
-    if (actualPno == 0) {
-        AfxMessageBox("未检测到有效曲线段，或第一段温度为-1！ ");
-        return false;
-    }
-
-    if (!WriteYudianModbus(0x002B, (short)actualPno)) return false;
-    Sleep(20); 
-
-    for (i = 0; i < actualPno; i++) { 
-        int regSP = 0x0050 + (i * 2);
-        int regT  = 0x0051 + (i * 2);
-
-        if (!WriteYudianModbus(regSP, m_YudianSP[i])) return false;
-        Sleep(20);
-        if (!WriteYudianModbus(regT, m_Yudiant[i])) return false;
-        Sleep(20);
-    }
-    
-    CString msg;
-    msg.Format("成功！共检测到 %d 段有效曲线，已全部下载到仪表。 ", actualPno);
-    AfxMessageBox(msg);
-    return true;
+void CPtcrDoc::SetYudianState(int nCmd) {
+    unsigned char cmd[8] = {0x01, 0x06, 0x00, 0x00, 0x00, 0x00, 0, 0};
+    if (nCmd == 0)      { cmd[3] = 0x1B; cmd[5] = 0x00; } 
+    else if (nCmd == 1) { cmd[3] = 0x1B; cmd[5] = 0x01; } 
+    else if (nCmd == 2) { cmd[3] = 0x1D; cmd[5] = 0x01; } 
+    unsigned short crc = CalcCRC16(cmd, 6);
+    cmd[6] = crc & 0xFF; cmd[7] = crc >> 8;
+    m_sPort.WriteToPortBinary(cmd, 8);
+    Sleep(60);
 }
-
-bool CPtcrDoc::SetYudianAutoTune(bool bStart) {
-    return WriteYudianModbus(0x001D, bStart ? 2 : 0);
-}
-
-bool CPtcrDoc::SetYudianRunState(int state) {
-    return WriteYudianModbus(0x001B, (short)state);
-}
-// ==================================================================

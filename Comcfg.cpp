@@ -147,26 +147,28 @@ void CComCfg::OnOK()
         MessageBox("控制中,不能改变串口参数!","提示",MB_OK);
 		return;
 	}	//若当前测试程序正在运行，弹出消息提示对话框并退出
-// ================= 【新增】在窗口销毁前，提前读取真实串口号 =================
-    int realPortNum = -1;
-    CComboBox* pCombo = (CComboBox*)GetDlgItem(IDC_SERIALPORTCOMBO);
-    if (pCombo != NULL) {
-        CString strPort;
-        pCombo->GetWindowText(strPort); // 获取文本，例如 "COM12"
-        strPort.MakeUpper();
-        int pos = strPort.Find("COM");
-        if (pos != -1) {
-            // 从 "COM12" 中提取出纯数字 12
-            realPortNum = atoi(strPort.Mid(pos + 3)); 
-        }
+
+
+	// --- 【新增开始】在 CDialog::OnOK 销毁窗口前，先读取温控表的选项 ---
+    int nCtrlIdx = -1;
+    CComboBox* pCtrlCombo = (CComboBox*)GetDlgItem(IDC_DigitConctollor);
+    if (pCtrlCombo != NULL) {
+        nCtrlIdx = pCtrlCombo->GetCurSel();
     }
-    // ============================================================================
+    // --- 【新增结束】 ---
+
 	CDialog::OnOK();
- // ================= 【新增】用真实的串口号覆盖掉刚才错误的索引 =================
-    if (realPortNum != -1) {
-        m_SerialPort = realPortNum - 1; 
+
+	// --- 【新增开始】如果是宇电表(假设它是第4个选项,索引为3),强行覆盖刚才读取的串口参数 ---
+    if (nCtrlIdx == 3) {
+        m_Parity = 0;   // 0=无校验(N)
+        m_DataBits = 0; // 0=8位
+        m_StopBits = 0; // 0=1位停止位
+        m_BaudRate = 1; // 1=9600波特率
+        m_pDoc->m_ControllerType = 3; // 告诉全局：现在是宇电表
     }
-    // ============================================================================
+    // --- 【新增结束】 ---
+
 	if(F45==0){	//使用温控表	//modeified on 1/18/2000	  
 		m_pDoc->m_sPort.m_nPortNr=m_SerialPort;
 		m_pDoc->m_sPort.m_nWriteBufferSize=atoi(m_strSendBuffer);
@@ -299,7 +301,7 @@ void CCmdCfg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CCmdCfg, CDialog)
 	//{{AFX_MSG_MAP(CCmdCfg)
-	ON_CBN_EDITCHANGE(IDC_DigitConctollor, OnEditchangeDigitConctollor)
+		// NOTE: the ClassWizard will add message map macros here
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -321,67 +323,27 @@ void CComCfg::OnSelchangeMultiMeter()
 	}
 
 }
-
-void CCmdCfg::OnEditchangeDigitConctollor() 
-{
-	// TODO: Add your control notification handler code here
-	
-}
-// ==================== 【新增】自动搜索系统串口 ====================
+// 在文件最末尾添加 OnInitDialog 的实现：
 BOOL CComCfg::OnInitDialog() 
 {
     CDialog::OnInitDialog();
 
-    // 1. 获取下拉框并清空原来画死的 COM1-COM4
     CComboBox* pCombo = (CComboBox*)GetDlgItem(IDC_SERIALPORTCOMBO);
-    if (pCombo == NULL) return TRUE;
-    pCombo->ResetContent(); 
+    if (pCombo != NULL) {
+        pCombo->ResetContent(); // 清空原本固定的 COM1-COM4
 
-    // 2. 自动搜索注册表中的可用串口
-    HKEY hKey;
-    int nFoundCount = 0;
-    // 访问硬件设备映射表
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DEVICEMAP\\SERIALCOMM", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
-    {
-        char szValueName[256];
-        char szPortName[256];
-        DWORD dwIndex = 0;
-        DWORD dwValueSize = 256;
-        DWORD dwDataSize = 256;
-        DWORD dwType;
-
-        // 循环读取所有存在的串口
-        while (RegEnumValue(hKey, dwIndex++, szValueName, &dwValueSize, NULL, &dwType, (LPBYTE)szPortName, &dwDataSize) == ERROR_SUCCESS)
-        {
-            pCombo->AddString(szPortName); // 将找到的串口名(如 COM5, COM12) 加入下拉框
-            nFoundCount++;
-            dwValueSize = 256;
-            dwDataSize = 256;
+        // 自动从系统注册表搜索真正存在的串口 (支持 USB 转串口)
+        HKEY hKey;
+        if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "HARDWARE\\DEVICEMAP\\SERIALCOMM", 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
+            char szValueName[256], szPortName[256];
+            DWORD dwIndex = 0, dwValueSize = 256, dwDataSize = 256, dwType;
+            while (RegEnumValue(hKey, dwIndex++, szValueName, &dwValueSize, NULL, &dwType, (LPBYTE)szPortName, &dwDataSize) == ERROR_SUCCESS) {
+                pCombo->AddString(szPortName);
+                dwValueSize = 256; dwDataSize = 256;
+            }
+            RegCloseKey(hKey);
         }
-        RegCloseKey(hKey);
+        if (pCombo->GetCount() > 0) pCombo->SetCurSel(0);
     }
-
-    // 3. 如果没搜到，给个保底的默认值
-    if (nFoundCount == 0) {
-        pCombo->AddString("COM1");
-        pCombo->AddString("COM2");
-    }
-
-    // 4. 恢复之前保存/正在使用的串口选择
-    CString strCurrentPort;
-    if (F45 == 0) {
-        strCurrentPort.Format("COM%d", m_pDoc->m_sPort.m_nPortNr);
-    } else {
-        strCurrentPort.Format("COM%d", m_pDoc->m_sPortF45.m_nPortNr);
-    }
-
-    int nIndex = pCombo->FindStringExact(-1, strCurrentPort);
-    if (nIndex != CB_ERR) {
-        pCombo->SetCurSel(nIndex); // 选中当前串口
-    } else {
-        pCombo->SetCurSel(0);      // 找不到就默认选列表里的第一个
-    }
-
-    return TRUE;  
+    return TRUE;
 }
-// ==================================================================

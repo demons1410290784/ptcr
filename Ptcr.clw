@@ -29,19 +29,19 @@ Class17=CSetTemp
 Class18=CSETUSER
 
 ResourceCount=14
-Resource1=IDD_MANUALCMD
-Resource2=IDD_LOGIN
+Resource1=IDR_MAINFRAME
+Resource2=IDD_SETSINGLEUSER
 Resource3=IDD_OPTIMIZE
-Resource4=IDD_RTSET
-Resource5=IDD_AnyTemToRes
-Resource6=IDD_Name_Resis_Setting
-Resource7=IDD_COMBINEDLG
-Resource8=IDD_COMSETTINGS
-Resource9=IDD_SETTemp
-Resource10=IDD_SETSINGLEUSER
-Resource11=IDD_ABOUTBOX
-Resource12=IDR_MAINFRAME
-Resource13=IDD_SETUSER
+Resource4=IDD_LOGIN
+Resource5=IDD_SETUSER
+Resource6=IDD_SETTemp
+Resource7=IDD_Name_Resis_Setting
+Resource8=IDD_AnyTemToRes
+Resource9=IDD_RTSET
+Resource10=IDD_COMBINEDLG
+Resource11=IDD_COMSETTINGS
+Resource12=IDD_MANUALCMD
+Resource13=IDD_ABOUTBOX
 Resource14=IDD_SELPRINTDATA
 
 [CLS:CCombinDlg]
@@ -64,8 +64,6 @@ Type=0
 BaseClass=CDialog
 HeaderFile=ComCfg.h
 ImplementationFile=Comcfg.cpp
-Filter=D
-VirtualFilter=dWC
 
 [CLS:CDataOptize]
 Type=0
@@ -510,7 +508,7 @@ Control30=IDC_RADIO7,button,1342177289
 Control31=IDC_EDIT_TempVias,edit,1350631552
 Control32=IDC_STATIC,static,1342308352
 Control33=IDC_LIST_CURVE,SysListView32,1350631425
-Control34=IDC_BTN_DOWN,button,1342242816
+Control34=IDC_BTN_DOWNLOAD,button,1342242816
 Control35=IDC_BTN_RUN,button,1342242816
 Control36=IDC_BTN_AT,button,1342242816
 Control37=IDC_BTN_STOP,button,1342242816
@@ -518,7 +516,7 @@ Control38=IDC_EDIT_SP,edit,1350631552
 Control39=IDC_STATIC,static,1342308352
 Control40=IDC_EDIT_T,edit,1350631552
 Control41=IDC_STATIC,static,1342308352
-Control42=IDC_BTN_UPDATE_ROW,button,1342242816
+Control42=IDC_BTN_UPDATE,button,1342242816
 
 [DLG:IDD_SETUSER]
 Type=1
