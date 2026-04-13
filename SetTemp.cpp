@@ -166,7 +166,6 @@ void CSetTemp::DoDataExchange(CDataExchange* pDX)
 	DDV_MaxChars(pDX, m_TempTime0, 10);
 	DDX_Text(pDX, IDC_EDIT_TempVias, m_tempvias);
 	//}}AFX_DATA_MAP
-	DDX_Control(pDX, IDC_LIST_CURVE, m_ListCtrl);
 }
 
 
@@ -176,14 +175,14 @@ BEGIN_MESSAGE_MAP(CSetTemp, CDialog)
 	ON_BN_CLICKED(IDC_RADIO7, OnRadio7)
 	ON_COMMAND_RANGE(IDC_RADIO1,IDC_RADIO2,OnChioce)
 	//}}AFX_MSG_MAP
-	ON_BN_CLICKED(IDC_BTN_DOWN, OnBtnDownloadCurve)
-	ON_BN_CLICKED(IDC_BTN_RUN, OnBtnRun)            
-	ON_BN_CLICKED(IDC_BTN_STOP, OnBtnStop)          
-	ON_BN_CLICKED(IDC_BTN_AT, OnBtnAutoTune)
-// ================= 【新增】绑定修改按钮和表格点击事件 =================
-	ON_BN_CLICKED(IDC_BTN_UPDATE_ROW, OnBtnUpdateRow)
-	ON_NOTIFY(NM_CLICK, IDC_LIST_CURVE, OnClickListCurve)
-	// ======================================================================
+	
+	// 【新增】绑定按钮 ID 到响应函数 (请确保 ID 与你在资源视图画的按钮一致)
+    ON_BN_CLICKED(IDC_BTN_UPDATE, OnBtnUpdateRow)
+    ON_BN_CLICKED(IDC_BTN_DOWNLOAD, OnBtnDownloadCurve)
+    ON_BN_CLICKED(IDC_BTN_RUN, OnBtnRun)
+    ON_BN_CLICKED(IDC_BTN_STOP, OnBtnStop)
+    ON_BN_CLICKED(IDC_BTN_AT, OnBtnAutoTune)
+
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -441,17 +440,21 @@ BOOL CSetTemp::OnInitDialog()
    //   if(m_pDoc->m_rt.m_rtSave.m_SetTemp==FALSE) 
 		  OnChioce(IDC_RADIO1);
   }
-// ================= 初始化列表外观与默认行 =================
-	m_ListCtrl.SetExtendedStyle(m_ListCtrl.GetExtendedStyle() | LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-	m_ListCtrl.InsertColumn(0, _T("目标温度(℃)"), LVCFMT_LEFT, 100);
-	m_ListCtrl.InsertColumn(1, _T("时间(分钟)"), LVCFMT_LEFT, 100);
-	for(int i=0; i<50; i++){
-		m_ListCtrl.InsertItem(i, _T("0.0"));
-		m_ListCtrl.SetItemText(i, 1, _T("0"));
-	}
-	// ==========================================================	
-	m_nSelRow = -1; // 【新增】默认没有选中行
-  return TRUE;  // return TRUE unless you set the focus to a control
+	// 【新增】初始化表格头
+    CListCtrl* pList = (CListCtrl*)GetDlgItem(IDC_LIST_CURVE);
+    if (pList) {
+        pList->SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);
+        pList->InsertColumn(0, "段号", LVCFMT_LEFT, 50);
+        pList->InsertColumn(1, "温度(℃)", LVCFMT_LEFT, 90);
+        pList->InsertColumn(2, "时间(分)", LVCFMT_LEFT, 80);
+        for(int i = 0; i < 30; i++) {
+            CString str; str.Format("%d", i+1);
+            pList->InsertItem(i, str);
+            pList->SetItemText(i, 1, "0.0"); pList->SetItemText(i, 2, "0");
+        }
+    }
+
+	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
 
@@ -542,86 +545,27 @@ if(m_pDoc->m_rt.Cooling==0){
 
 }
 }
-// ==================== 宇电多段升温 UI 按钮事件 ====================
-void CSetTemp::OnBtnDownloadCurve() 
-{
-    if (m_pDoc == NULL) return;
-    
-    memset(m_pDoc->m_YudianSP, 0, sizeof(m_pDoc->m_YudianSP));
-    memset(m_pDoc->m_Yudiant, 0, sizeof(m_pDoc->m_Yudiant));
-
-    int nItemCount = m_ListCtrl.GetItemCount(); 
-    if (nItemCount > 50) nItemCount = 50; 
-
-    for (int i = 0; i < nItemCount; i++) {
-        CString strTemp = m_ListCtrl.GetItemText(i, 0); 
-        CString strTime = m_ListCtrl.GetItemText(i, 1); 
-
-        float fTemp = (float)atof(strTemp);
-        m_pDoc->m_YudianSP[i] = (short)(fTemp * 10.0f); 
-        m_pDoc->m_Yudiant[i]  = (short)atoi(strTime); 
-
-        if (fTemp == -1.0f) break; 
-    }
-    m_pDoc->DownloadYudianProgram();
-}
-
-void CSetTemp::OnBtnRun() 
-{
-    if (m_pDoc && m_pDoc->SetYudianRunState(0)) {
-        AfxMessageBox("指令下发成功：仪表已开始运行曲线！ ");
+// 【新增】按键交互逻辑实现
+void CSetTemp::OnBtnUpdateRow() {
+    CListCtrl* pList = (CListCtrl*)GetDlgItem(IDC_LIST_CURVE);
+    int nRow = pList->GetNextItem(-1, LVNI_SELECTED);
+    if (nRow != -1) {
+        CString sP, sT; GetDlgItemText(IDC_EDIT_SP, sP); GetDlgItemText(IDC_EDIT_T, sT);
+        pList->SetItemText(nRow, 1, sP); pList->SetItemText(nRow, 2, sT);
     }
 }
-
-void CSetTemp::OnBtnStop() 
-{
-    if (m_pDoc && m_pDoc->SetYudianRunState(1)) {
-        AfxMessageBox("指令下发成功：仪表已停止加热。 ");
+void CSetTemp::OnBtnDownloadCurve() {
+    if (!m_pDoc) return;
+    CListCtrl* pList = (CListCtrl*)GetDlgItem(IDC_LIST_CURVE);
+    for (int i = 0; i < 30; i++) {
+        m_pDoc->m_YudianSP[i] = (short)(atof(pList->GetItemText(i, 1)) * 10);
+        m_pDoc->m_Yudiant[i]  = (short)atoi(pList->GetItemText(i, 2));
     }
+    if (m_pDoc->DownloadYudianCurve(m_pDoc->m_YudianSP, m_pDoc->m_Yudiant, 30))
+        AfxMessageBox("多段升温程序已成功下载！");
 }
-
-void CSetTemp::OnBtnAutoTune() 
-{
-    if (IDYES == AfxMessageBox("确定要启动自整定吗？此过程不要干预系统。 ", MB_YESNO)) {
-        if (m_pDoc && m_pDoc->SetYudianAutoTune(true)) {
-            AfxMessageBox("自整定已启动！请观察仪表面板是否闪烁 AT 字符。 ");
-        }
-    }
+void CSetTemp::OnBtnRun()  { if(m_pDoc) m_pDoc->SetYudianState(0); }
+void CSetTemp::OnBtnStop() { if(m_pDoc) m_pDoc->SetYudianState(1); }
+void CSetTemp::OnBtnAutoTune() { 
+    if(IDYES == AfxMessageBox("启动自整定(AT)？", MB_YESNO)) m_pDoc->SetYudianState(2); 
 }
-// ==================================================================
-// ==================== 【新增】表格编辑联动逻辑 ====================
-
-// 当鼠标左键点击表格的某一行时触发
-void CSetTemp::OnClickListCurve(NMHDR* pNMHDR, LRESULT* pResult) 
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    m_nSelRow = pNMItemActivate->iItem; // 获取当前点中的是第几行 (从0开始)
-
-    if (m_nSelRow != -1) {
-        // 把表格里的数据读取出来，显示到右侧的编辑框里，方便用户修改
-        CString strTemp = m_ListCtrl.GetItemText(m_nSelRow, 0);
-        CString strTime = m_ListCtrl.GetItemText(m_nSelRow, 1);
-        SetDlgItemText(IDC_EDIT_SP, strTemp);
-        SetDlgItemText(IDC_EDIT_T, strTime);
-    }
-    *pResult = 0;
-}
-
-// 当点击“修改/录入”按钮时触发
-void CSetTemp::OnBtnUpdateRow() 
-{
-    if (m_nSelRow == -1) {
-        AfxMessageBox("请先在左侧表格中点击选中要修改的行！ ");
-        return;
-    }
-
-    CString strTemp, strTime;
-    // 从编辑框读取用户输入的新数值
-    GetDlgItemText(IDC_EDIT_SP, strTemp);
-    GetDlgItemText(IDC_EDIT_T, strTime);
-
-    // 把新数值写回表格对应的行
-    m_ListCtrl.SetItemText(m_nSelRow, 0, strTemp);
-    m_ListCtrl.SetItemText(m_nSelRow, 1, strTime);
-}
-// ==================================================================

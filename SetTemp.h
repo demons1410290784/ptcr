@@ -77,19 +77,12 @@ protected:
 	afx_msg void OnRadio7();
 	//}}AFX_MSG
 	afx_msg void OnChioce(UINT nID);
-public:
-	CListCtrl m_ListCtrl;
-	int m_nSelRow; // 【新增】用来记录当前点中了表格的哪一行
-
-	afx_msg void OnBtnDownloadCurve(); 
-	afx_msg void OnBtnRun();           
-	afx_msg void OnBtnStop();          
-	afx_msg void OnBtnAutoTune();   
-	
-	// ================= 【新增】编辑表格相关的声明 =================
-	afx_msg void OnBtnUpdateRow(); // 点击修改按钮
-	afx_msg void OnClickListCurve(NMHDR* pNMHDR, LRESULT* pResult); // 点击表格某一行
-	// ==============================================================
+	// 【新增】宇电按钮响应事件声明
+    afx_msg void OnBtnUpdateRow();
+    afx_msg void OnBtnDownloadCurve();
+    afx_msg void OnBtnRun();
+    afx_msg void OnBtnStop();
+    afx_msg void OnBtnAutoTune();
 	DECLARE_MESSAGE_MAP()
 };
 
